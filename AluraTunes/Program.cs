@@ -42,6 +42,26 @@ namespace AluraTunes
                 Console.WriteLine("{0}\t{1}", genero.Id, genero.Nome);
             }
 
+            Console.WriteLine();
+            //Linq = Language Integrated Query = Consulta Integrada à Linguagem
+
+            //listar músicas
+
+            var musicas = new List<Musica>
+            {
+                new Musica { Id = 1, Nome = "Sweet Child O'Mine", GeneroId = 1 },
+                new Musica { Id = 2, Nome = "I Shoot The Sheriff", GeneroId = 2},
+                new Musica { Id = 3, Nome = "Danúbio Azul", GeneroId = 5},
+            };
+
+            var musicaQuery = from m in musicas
+                              join g in generos on m.GeneroId equals g.Id
+                              select new { m, g };
+
+            foreach (var musica in musicaQuery)
+            {
+                Console.WriteLine("{0}\t{1}\t{2}",musica.m.Id, musica.m.Nome, musica.g.Nome);
+            }
 
             Console.ReadKey();
         }
@@ -51,5 +71,12 @@ namespace AluraTunes
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+    }
+
+    class Musica
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public int GeneroId { get; set; }
     }
 }
