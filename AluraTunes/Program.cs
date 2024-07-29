@@ -75,6 +75,19 @@ namespace AluraTunes
                 Console.WriteLine("{0}\t{1}", musica.NomeMusica, musica.NomeGenero);
             }
 
+            Console.WriteLine();
+            //Filtrando Consultas com Join
+
+            var musicasComFiltro = from m in musicas
+                                   join g in generos on m.GeneroId equals g.Id
+                                   where g.Nome == "Reggae"
+                                   select m.Nome;
+
+            foreach(var musica in musicasComFiltro)
+            {
+                Console.WriteLine("{0}", musica);
+            }
+
             Console.ReadKey();
         }
     }
