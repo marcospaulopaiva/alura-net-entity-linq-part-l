@@ -63,6 +63,18 @@ namespace AluraTunes
                 Console.WriteLine("{0}\t{1}\t{2}",musica.m.Id, musica.m.Nome, musica.g.Nome);
             }
 
+            Console.WriteLine();
+            //listar músicas só com Nome e genero
+
+            var musicasQueryNomeGenero = from m in musicas
+                                         join g in generos on m.GeneroId equals g.Id
+                                         select new { NomeMusica = m.Nome, NomeGenero = g.Nome };
+
+            foreach(var musica in musicasQueryNomeGenero)
+            {
+                Console.WriteLine("{0}\t{1}", musica.NomeMusica, musica.NomeGenero);
+            }
+
             Console.ReadKey();
         }
     }
