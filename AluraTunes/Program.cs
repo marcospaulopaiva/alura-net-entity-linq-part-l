@@ -14,23 +14,18 @@ namespace AluraTunes
                 var textoBusca = "Led";
 
                 var query = from a in contexto.Artistas
+                            join alb in contexto.Albums on a.ArtistaId equals alb.ArtistaId
                             where a.Nome.Contains(textoBusca)
-                            select a;
+                            select new 
+                            { 
+                                NomeArtista = a.Nome,
+                                NomeAlbum = alb.Titulo
+                            };
 
-                foreach (var artista in query)
+                foreach (var item in query)
                 {
-                    Console.WriteLine("{0}\t{1}",artista.ArtistaId, artista.Nome);
+                    Console.WriteLine("{0}\t{1}",item.NomeArtista, item.NomeAlbum);
                 }
-
-                Console.WriteLine();
-
-                var query2 = contexto.Artistas.Where(a => a.Nome.Contains(textoBusca));
-
-                foreach (var artista in query2)
-                {
-                    Console.WriteLine("{0}\t{1}", artista.ArtistaId, artista.Nome);
-                }
-
 
             }
             Console.ReadKey();
