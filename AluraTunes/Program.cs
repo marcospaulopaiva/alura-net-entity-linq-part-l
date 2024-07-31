@@ -8,36 +8,7 @@ namespace AluraTunes
     {
         static void Main(string[] args)
         {
-            string filePath = @"C:\arquivos\AluraTunes.xml";
-
-            XElement root = XElement.Load(filePath);
-
-            var queryXML =
-                from g in root.Elements("Generos").Elements("Genero")
-                select g;
-
-            foreach (var genero in queryXML) 
-            {
-                Console.WriteLine("{0}\t{1}", genero.Element("GeneroId").Value, genero.Element("Nome").Value);
-            }
-
-            Console.WriteLine();
-
-            var query =
-                from g in root.Elements("Generos").Elements("Genero")
-                join m in root.Elements("Musicas").Elements("Musica") on g.Element("GeneroId").Value equals m.Element("GeneroId").Value
-                select new
-                {
-                    Musica = m.Element("Nome").Value,
-                    Genero = g.Element("Nome").Value
-                };
-
-            foreach (var musicaEgenero in query)
-            {
-                Console.WriteLine("{0}\t{1}", musicaEgenero.Musica, musicaEgenero.Genero);
-            }
-
-            Console.ReadKey();
+           
         }
     }
 }
